@@ -2,11 +2,11 @@
 
 #### 1. 개요
 - 프로젝트명: COZA STORE
-- 프로젝트 소개: 
+- 프로젝트 소개: 신뢰할 수 있는 ‘검수 시스템'을 통해서 개인 간의 인터넷 거래에서 생기는 사기범죄를 사전에 예방하고 방지해 안전한 온라인 쇼핑몰 개발
 - 개발 인원: 6명
 - 개발 기간: 2022.04.30 ~ present
-- 통합개발환경(IDE) : Eclipse Version 4.22.0
-- SERVER : Apache Tomcat v8.0
+- 통합개발환경(IDE) : Eclipse Version 2021-12 (4.22.0)
+- SERVER : Apache Tomcat v8.5
 - JRE : jre1.8.0_321
 - Backend : Java (jdk1.8.0_321)
 - Database : MySQL
