@@ -82,6 +82,8 @@ function filter(value){
    <link rel="stylesheet" type="text/css" href="MainPage/vendor/perfect-scrollbar/perfect-scrollbar.css">
    <link rel="stylesheet" type="text/css" href="MainPage/css/util.css">
    <link rel="stylesheet" type="text/css" href="MainPage/css/main.css">
+   <link rel="stylesheet" type="text/css" href="MainPage/css/community.css">
+   
 <style type="text/css">
 	a {
 	    color: #333;
@@ -222,9 +224,8 @@ function filter(value){
 				<form action="ProductSearchPro.pr">
 					<table>
 						<tr>
-							<td><input type="text" placeholder="상품을 입력해주세요."
-								name="ProductSearch"></td>
-							<td><input type="submit" value="검색" placeholder="Search">
+							<td><input type="text" placeholder="상품을 입력해주세요." name="ProductSearch"  class="form-control form-control"></td>
+							<td><input type="submit" value="검색" placeholder="Search" class="btn_sell_index">
 							</td>
 						</tr>
 					</table>
@@ -273,10 +274,11 @@ function filter(value){
                 <a href="ProductDetailPro.pr?sell_num=${articleList.sell_num}&sell_brand=${articleList.sell_brand}">
                  <img src="./Upload/sell_img/${articleList.sell_img_real_name}" width="300px" height="400px" alt="Accessories Pack"/></a>
                 
-                   <a href="ProductDetailPro.pr?sell_num=${articleList.sell_num}&sell_brand=${articleList.sell_brand}"> <span>${articleList.sell_img_real_name}</span></a>
+                   <a href="ProductDetailPro.pr?sell_num=${articleList.sell_num}&sell_brand=${articleList.sell_brand}"> 
+                   </a>
                  <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                 <i class="fa fa-eye"></i><span style="text-align: right;">${articleList.sell_readcount } </span>|
+                 <i class="fa fa-eye marginEye"></i><span style="text-align: right;">${articleList.sell_readcount } </span>|
                  <span>
                	     <span>
 						<span class="w3-border w3-center w3-padding">      <!-- 좋아요 기능을 위한 스크립트(Ajax)는 892행  -->
@@ -292,8 +294,8 @@ function filter(value){
 						</span>
 					</span>
 				</span>
-              		 <h5> <a href="ProductDetailPro.pr?sell_num=${articleList.sell_num}&sell_brand=${articleList.sell_brand}">   ${articleList.sell_title }</a></h5>
-                 	 <h5> <a href="ProductDetailPro.pr?sell_num=${articleList.sell_num}&sell_brand=${articleList.sell_brand}"> ${articleList.sell_brand }</a></h5>
+              		 <h5><a href="ProductDetailPro.pr?sell_num=${articleList.sell_num}&sell_brand=${articleList.sell_brand}" class="sell_listTile">   ${articleList.sell_title }</a></h5>
+                 	 <h5><a href="ProductDetailPro.pr?sell_num=${articleList.sell_num}&sell_brand=${articleList.sell_brand}" class="sell_listBrand"> ${articleList.sell_brand }</a></h5>
 								</div>
 							</div>
 						</c:forEach>
@@ -569,7 +571,7 @@ function filter(value){
 $(function(){
 	$(".fa-heart").click(function(a){
 	var thisRow = $(this).closest('div');  //하트표시 줄의 부모(div)를 찾아  thisRow값에 저장
-	var thisplace = thisRow.find('span:eq(5)')[0];
+	var thisplace = thisRow.find('span:eq(4)')[0];
 	
 	var sell_num =  thisRow.find('input').val(); //thisRow의 하위 요소인 find(input)=>input이라는 value를 찾아 sell_num에 저장 == ${sell_num}
 	
