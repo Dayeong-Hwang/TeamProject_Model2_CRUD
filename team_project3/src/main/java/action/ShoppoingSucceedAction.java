@@ -37,28 +37,16 @@ public class ShoppoingSucceedAction implements Action {
 		String phone =request.getParameter("phone");		//구매자 정보
 		
 		int usePoint = Integer.parseInt(request.getParameter("point"));
-		System.out.println(usePoint);
-		//int savePoint =  Integer.parseInt(request.getParameter("member_point"))-usePoint; //실제로 사용하고 남은 포인트 저장하는 변수
 		
 		int member_info_detail_acc_money=Integer.parseInt(request.getParameter("member_info_detail_acc_money")) ;
-		member_info_detail_acc_money %=10000;    //금액 파싱작업 db에 10000단위로 잘라서 넣음
-	//	address1&postcode&address2&name&phone&name=4800
-//		System.out.println("address1" +address1);
-//		System.out.println("postcode" +postcode);
-//		System.out.println("address2" +address2);
-//		System.out.println("name" +name);
-//		System.out.println("phone" +phone);
-//		System.out.println("savePoint" +usePoint);          //원래 가격 -usePoint 해야됨.
-////		System.err.println("member_code:"+member_code);
-//		System.out.println("member_info_detail_acc_money" +member_info_detail_acc_money);  //sell_price 값 += 추가해야됨.
-		
-//--------------------------------------------------------------------------------------------------------------------------------------------		
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------		
 		MemberBean memberBean = new MemberBean(); //값 담기(구매 회원 정보)	
-		//articleList 
 		
 		SellerBuyInsert service = new SellerBuyInsert();
 		//------------------------------------ member_info 테이블
-		memberBean.setMember_info_detail_point(usePoint);  				//사용 포인트 차감
+		
+		memberBean.setMember_info_detail_point((int)(sell_price*0.05)-usePoint);  				//사용 포인트 차감
 		memberBean.setMember_info_detail_acc_money(member_info_detail_acc_money); //누적 구매값 증가
 		memberBean.setMember_code(member_code);
 		
@@ -78,10 +66,10 @@ public class ShoppoingSucceedAction implements Action {
 		SellerProductDTO sellerDTO = new SellerProductDTO();    //구매자가 구매한 판매제품 상세하게 뿌리기 (jsp file 로 가져감)
 		sellerDTO.setBuy_member_code(member_code);
 		sellerDTO.setBuy_item_num(sell_num);
-		sellerDTO.setBuy_price(sell_price/10000);
-		int addpoint= (int) (sell_price*0.05);// point => 판매가격의 5퍼 추가
-		sellerDTO.setBuy_point(addpoint);
-		//System.out.println("action에서"+sellerDTO);
+		sellerDTO.setBuy_price(sell_price);
+		
+		
+		
 		InsertBuyMemberService service1 = new InsertBuyMemberService();
 		
 //----------------------------------------------------------------------------------------------------------------		
