@@ -249,7 +249,7 @@
 				<c:forEach var="qna" items="${qnaList }" varStatus="status">
 	                <tr>
                     	<td>${listCount -(listCount -((pageNum-1)* listLimit + status.index)-1)} </td> 
-	                    <td>
+	                    <td  class="leftTd">
 							<a href="CommunityQnaDetail.ma?qna_num=${qna.getQna_num() }&page=${pageNum}">
 							<!-- 답글에 대한 들여쓰기(공백 추가) 작업 처리 -->
 							<c:forEach var="i" begin="1" end="${qna.getQna_re_lev() }">
@@ -275,14 +275,14 @@
 		             	 <li class="page-item"><a class="page-link" href="CommunityQna.ma?page=${pageNum - 1}">이전</a></li>
 					</c:when>
 					<c:otherwise>
-		            	<li class="page-item"><a class="page-link" >이전</a></li>
+		            	<li class="page-item page-link linkColor" >이전</li>
 			        </c:otherwise>
 				</c:choose>
 				
 				<c:forEach var="i" begin="${startPage }" end="${endPage }">
 					<c:choose>
 						<c:when test="${pageNum eq i}">
-		             		 <li class="page-item"><a class="page-link">${i }</a></li>
+		             		 <li class="page-item page-link linkColor">${i }</li>
 			       		</c:when>
 						<c:otherwise>     
 			              	<li class="page-item"><a href="CommunityQna.ma?page=${i }" class="page-link">${i }</a></li>
@@ -295,7 +295,7 @@
 			            	<li class="page-item"><a class="page-link" href="CommunityQna.ma?page=${pageNum + 1}">다음</a></li>
 			       	 	</c:when>
 						<c:otherwise>   
-		              		<li class="page-item"><a class="page-link">다음</a></li>
+		              		<li class="page-item page-link linkColor">다음</li>
 		       		 	</c:otherwise>
 				</c:choose>
             </ul>
