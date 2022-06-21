@@ -1,0 +1,196 @@
+
+CREATE TABLE grade (
+	grade_name VARCHAR(6) CHECK(grade_name IN ('Basic', 'Bronze', 'Siver', 'Gold', 'Vip', 'VVip', 'VVVip', 'Admin')),
+	lowest_acc_money INT NOT NULL ,
+	highest_acc_money INT NOT NULL ,
+	discount_rate INT NOT NULL
+);
+
+INSERT INTO grade VALUES ('Basic', 0, 2000,'2');
+INSERT INTO grade VALUES ('Bronze', 2001, 5000,'3');
+INSERT INTO grade VALUES ('Siver', 5001, 10000,'4');
+INSERT INTO grade VALUES ('Gold', 10001, 20000,'5');
+INSERT INTO grade VALUES ('Vip', 20001, 40000,'6');
+INSERT INTO grade VALUES ('VVip', 40001, 100000,'7');
+INSERT INTO grade VALUES ('VVVip', 100001, 999999999,'8');
+INSERT INTO grade VALUES ('Admin', 2147483647, 2147483647,'10');
+
+CREATE TABLE reason (
+	reason_num VARCHAR(5) PRIMARY KEY,
+	reason_content VARCHAR(50)	
+);
+
+INSERT INTO reason VALUES ('0', '정상');
+INSERT INTO reason VALUES ('1', '경고 1 (정지 3일)');
+INSERT INTO reason VALUES ('2', '경고 2 (정지 7일)');
+INSERT INTO reason VALUES ('3', '경고 3 (정지 14일)');
+INSERT INTO reason VALUES ('4', '경고 4 (정지 30일)');
+INSERT INTO reason VALUES ('5', '경고 5 (정지 45일)');
+INSERT INTO reason VALUES ('6', '경고 6 (정지 90일)');
+INSERT INTO reason VALUES ('7', '경고 7 (정지 180일)');
+INSERT INTO reason VALUES ('8', '경고 8 (정지 365일)');
+INSERT INTO reason VALUES ('9', '경고 9 (영구 정지)');
+
+CREATE TABLE auth (
+	email VARCHAR(100),
+	auth_code VARCHAR(50)
+);
+
+CREATE TABLE member (
+	member_num VARCHAR(1000),
+	member_code VARCHAR(32),
+	member_nickname VARCHAR(16),
+	member_id VARCHAR(400),
+	member_passwd VARCHAR(400),
+	member_email VARCHAR(100),
+	PRIMARY KEY (member_code),
+	UNIQUE (member_nickname,member_id,member_email)
+);
+
+CREATE TABLE member_info (
+	member_info_code VARCHAR(32),
+	member_info_name VARCHAR(30),
+	member_info_gender VARCHAR(6),
+	member_info_phone VARCHAR(11),
+	member_info_age VARCHAR(5),
+	member_info_post_code VARCHAR(20),
+	member_info_address VARCHAR(150),
+	member_info_address_detail VARCHAR(100),
+	member_info_ship_post_code VARCHAR(20),
+	member_info_ship_address VARCHAR(150),
+	member_info_ship_address_detail VARCHAR(100),
+	member_info_mypage_img_name VARCHAR(400),
+	member_info_mypage_real_img_name VARCHAR(400),
+	FOREIGN KEY(member_info_code) REFERENCES member(member_code) ON DELETE CASCADE
+);
+
+CREATE TABLE member_info_detail (
+	member_info_detail_code VARCHAR(32),
+	member_info_detail_like_style VARCHAR(100),
+	member_info_detail_like_brand VARCHAR(150),
+	member_info_detail_like_category VARCHAR(200),
+	member_info_detail_point INT,
+	member_info_detail_acc_money INT,
+	FOREIGN KEY(member_info_detail_code) REFERENCES member(member_code) ON DELETE CASCADE
+);
+
+CREATE TABLE address (
+   	address_num INT,
+	 member_code VARCHAR(32),
+    	 post_code VARCHAR(20),
+   	 address_code VARCHAR(150),
+   	 address_detail VARCHAR(100),
+	address_name VARCHAR(30),
+	address_phone VARCHAR(11),
+	FOREIGN KEY(member_code) REFERENCES member(member_code) ON DELETE CASCADE
+);
+  
+
+CREATE TABLE member_service_log (
+	member_service_log_code VARCHAR(32),
+	member_service_log_status VARCHAR(2) CHECK(member_service_log_status IN ('정상', '정지', '탈퇴')),
+	member_service_log_join_date VARCHAR(17),
+	member_service_log_passwd_change_date VARCHAR(17),
+	member_service_log_login_date VARCHAR(17),
+	member_service_log_order_count INT,
+	member_service_log_status_reason VARCHAR(5),
+	FOREIGN KEY(member_service_log_code) REFERENCES member(member_code) ON DELETE CASCADE,
+	FOREIGN KEY(member_service_log_status_reason) REFERENCES reason(reason_num) ON DELETE CASCADE
+);
+
+CREATE TABLE sell (
+	sell_num INT Auto_Increment PRIMARY KEY,
+	sell_member_code VARCHAR(32),
+	sell_title VARCHAR(50),
+	sell_category VARCHAR(10),
+	sell_category_detail VARCHAR(10),
+	sell_content VARCHAR(3000),
+	sell_price INT,
+	sell_color VARCHAR(50),
+	sell_size VARCHAR(20),
+	sell_brand VARCHAR(100),
+	sell_write_date VARCHAR(17),
+	sell_readcount INT,
+	sell_likecount INT,
+	FOREIGN KEY(sell_member_code) REFERENCES member(member_code) ON DELETE CASCADE
+);
+
+CREATE TABLE sell_img (
+	sell_img_real_num INT,
+	sell_img_num INT,
+	sell_img_name VARCHAR(400),
+	sell_img_real_name VARCHAR(400),
+	FOREIGN KEY(sell_img_real_num) REFERENCES sell(sell_num) ON DELETE CASCADE
+);
+
+CREATE TABLE sell_list (
+	sell_list_num INT,
+	sell_list_item_status VARCHAR(4),
+	sell_list_approve_date VARCHAR(17),
+	sell_list_approve_nickname VARCHAR(16),
+	FOREIGN KEY(sell_list_num) REFERENCES sell(sell_num) ON DELETE CASCADE
+);
+
+
+CREATE TABLE like_list (
+	like_list_member_code VARCHAR(32),
+	like_list_item_num INT,
+	FOREIGN KEY(like_list_member_code) REFERENCES member(member_code) ON DELETE CASCADE,
+	FOREIGN KEY(like_list_item_num) REFERENCES sell(sell_num) ON DELETE CASCADE
+);
+
+CREATE TABLE buy (
+	buy_member_code VARCHAR(32),
+	buy_item_num INT,
+	buy_price INT,
+	buy_point INT,
+	buy_sell_item_date VARCHAR(17),
+	buy_item_status VARCHAR(4),
+	FOREIGN KEY(buy_member_code) REFERENCES member(member_code) ON DELETE CASCADE
+);
+
+CREATE TABLE notice (
+	notice_num INT Auto_Increment PRIMARY KEY,
+	notice_nickname VARCHAR(16),
+	notice_write_date VARCHAR(17),
+	notice_title VARCHAR(50),
+	notice_content VARCHAR(3000),
+	notice_readcount INT
+);
+
+CREATE TABLE notice_img_file (
+	notice_img_file_real_num INT,
+	notice_img_file_num INT,
+	notice_img_file_name VARCHAR(400),
+	notice_img_file_real_name VARCHAR(400),
+	foreign key(notice_img_file_num) REFERENCES notice(notice_num) ON DELETE CASCADE
+);
+
+CREATE TABLE qna (
+	qna_num INT Auto_Increment PRIMARY KEY,
+	qna_nickname VARCHAR(16),
+	qna_write_date VARCHAR(17),
+	qna_title VARCHAR(50),
+	qna_content VARCHAR(3000),
+	qna_re_ref INT,
+	qna_re_lev INT,
+	qna_re_seq INT,
+	qna_readcount INT
+);
+
+CREATE TABLE event (
+	event_num INT Auto_Increment PRIMARY KEY,
+	event_nickname VARCHAR(16),
+	event_write_date VARCHAR(17),
+	event_title VARCHAR(50),
+	event_content VARCHAR(3000),
+	event_readcount INT
+);
+
+CREATE TABLE event_img_file (
+	event_img_file_real_num INT,
+	event_img_file_num INT,
+	event_img_file_name VARCHAR(400),
+	event_img_file_real_name VARCHAR(400),
+	foreign key(event_img_file_num) REFERENCES event(event_num) ON DELETE CASCADE
+);
