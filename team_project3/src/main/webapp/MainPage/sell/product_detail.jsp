@@ -339,13 +339,14 @@ html, body {
 
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
-											
+				
 						<table>
 							<tr>
 							<td colspan="2" ><h2 class="mtext-105 cl2 js-name-detail p-b-14">
 							제목:${sellerdto.sell_title}</h2></td>
 							</tr>
 							<tr>
+							
 								<td>Brand </td>
 								<td style="text-align: left;">${sellerdto.sell_brand}</td>
 							</tr>

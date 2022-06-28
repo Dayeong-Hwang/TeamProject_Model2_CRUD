@@ -1,10 +1,15 @@
+<%@page import="java.io.Console"%>
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="vo.SellerProductDTO"%>
 <%@page import="vo.PageInfo"%>
 <%@page import="vo.SellerDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+ 
+
+
 <!DOCTYPE html>
 <html >
 <head>
@@ -65,6 +70,7 @@ function filter(value){
 }
 
 </script>  
+
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="icon" type="image/png" href="MainPage/images/icons/favicon.png"/>
@@ -87,6 +93,9 @@ function filter(value){
 <style type="text/css">
 	a {
 	    color: #333;
+	}
+	#cookie{
+	pointer-events: none;
 	}
 </style>
 </head>
@@ -192,19 +201,7 @@ function filter(value){
 	</header>
 	<!-- 여기까지 헤더 -->
 	<!-- Cart -->
-	<div style="float: right;">
-     		<table border="1">
-     			<tr>
-     				<th colspan="4" style="text-align: center;">최근 본 상품</th><th></th><th></th>
-     			</tr>
-     			<tr>
-     				<td colspan="4"><img src="./Upload/sell_img/hermes1.jpg" width="200" height="180"></td><td></td><td></td>
-     			</tr>
-     			<tr>
-     				<td colspan="4" style="text-align: center;">내가찜한상품</td><td></td><td></td>
-     			</tr>
-     		</table>
-     	</div>
+	
 	<jsp:include page="/MainPage/menu/pc_shopping cart.jsp" />
 <!--     우리가 필터링으로 구분해줘야될 곳 -->
    <!-- Product -->
